@@ -2,10 +2,17 @@
 import React from "react";
 import Badge from "../ui/badge/Badge";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
+import type { AdminDashboardData } from "@/services/admin-dashboard.service";
 
-export const EcommerceMetrics = () => {
+export const EcommerceMetrics = ({
+  data,
+  loading,
+}: {
+  data: AdminDashboardData;
+  loading?: boolean;
+}) => {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
       {/* <!-- Metric Item Start --> */}
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
@@ -15,10 +22,10 @@ export const EcommerceMetrics = () => {
         <div className="flex items-end justify-between mt-5">
           <div>
             <span className="text-sm text-gray-500 dark:text-gray-400">
-              Customers
+              Daily Active Users
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              3,782
+              {loading ? "..." : data.dau}
             </h4>
           </div>
           <Badge color="success">
@@ -37,10 +44,10 @@ export const EcommerceMetrics = () => {
         <div className="flex items-end justify-between mt-5">
           <div>
             <span className="text-sm text-gray-500 dark:text-gray-400">
-              Orders
+              Active Listings
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              5,359
+              {loading ? "..." : data.listingsCount}
             </h4>
           </div>
 
@@ -51,6 +58,25 @@ export const EcommerceMetrics = () => {
         </div>
       </div>
       {/* <!-- Metric Item End --> */}
+
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+        <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
+          <BoxIconLine className="text-gray-800 dark:text-white/90" />
+        </div>
+        <div className="flex items-end justify-between mt-5">
+          <div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              Open Moderation Items
+            </span>
+            <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
+              {loading ? "..." : data.openReports + data.pendingKyc}
+            </h4>
+          </div>
+          <Badge color={data.openReports + data.pendingKyc > 0 ? "warning" : "success"}>
+            {loading ? "..." : `${data.pendingKyc} KYC / ${data.openReports} Reports`}
+          </Badge>
+        </div>
+      </div>
     </div>
   );
 };
