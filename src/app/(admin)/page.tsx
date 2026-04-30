@@ -3,11 +3,10 @@ import React from "react";
 import AdminDashboardOverview from "@/components/admin/AdminDashboardOverview";
 
 export const metadata: Metadata = {
-  title:
-    "Next.js E-commerce Dashboard | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Home for TailAdmin Dashboard Template",
+  title: "Dashboard | Broker-Social Admin",
+  description: "Broker-Social admin dashboard",
 };
 
-export default function Ecommerce() {
+export default function AdminDashboardPage() {
   return <AdminDashboardOverview />;
 }
